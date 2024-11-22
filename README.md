@@ -2,19 +2,17 @@
 Created using Unity 6 in Visual Studio.
 
 ## Gameplay
-Rotate a pipe to make different coloured gumdrops collide to score points.
-Tap the side of the screen or the arrows to make the pipe rotate.
+Click to drop balls into a rotating pipe. Connect 3 or more balls together to earn points.
 
 ## Roadmap
 Planned updates for the game include:
 
+- A quit button.
+- A start menu.
 - Power-ups and special abilities.
 - Controller support and customizable settings.
+- Android / IOS Support.
 - Wear OS support.
-
-## Screenshots
-
-I'll get to adding some.
 
 ## License
 All rights reserved.
