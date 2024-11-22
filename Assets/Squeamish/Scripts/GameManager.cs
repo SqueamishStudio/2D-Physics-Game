@@ -18,7 +18,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI pointsText;
 
+    [SerializeField] private GameObject pipe;
+
+    [SerializeField] private float rotAmount = 10;
+
     private float time = 5;
+
+    private float creationTime = 0;
+
+    private Vector3 slerpPos;
 
     // Start is called before the first frame update
     void Start()
@@ -34,20 +42,21 @@ public class GameManager : MonoBehaviour
         objectPrefabs.RemoveAt(0);
         objectPrefabs.RemoveAt(0);
 
-        InvokeRepeating("CreateObject", 1, time);
         InvokeRepeating("AddPrefab", time * 10, time * 10);
     }
 
     // Update is called once per frame
-    private void CreateObject()
+    public void CreateObject()
     {
-        GameObject gameObject = Instantiate(objectCreationPrefabs[Random.Range(0, objectCreationPrefabs.Count)], spawnTransform.position, Quaternion.identity);
-        objects.Add(gameObject);
-
-        if (time > 0.5f)
+        if (creationTime > 1)
         {
-            time -= 0.01f;
+            GameObject gameObject = Instantiate(objectCreationPrefabs[Random.Range(0, objectCreationPrefabs.Count)], spawnTransform.position, Quaternion.identity);
+            objects.Add(gameObject);
+
+            creationTime = 0;
         }
+
+        return;
     }
 
     private void AddPrefab()
@@ -107,5 +116,11 @@ public class GameManager : MonoBehaviour
         }
 
         destroyList.Clear();
+
+        // forever have the pipe rotate
+        pipe.transform.Rotate(0, 0, rotAmount * Time.deltaTime);
+
+        // add to the creation time
+        creationTime += Time.deltaTime;
     }
 }

@@ -143,7 +143,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5337dfea5fe61a146bac5b59342818e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   tag: Gumdrop
   touchingObjects: []
   connectingObjects: []
+  splatPrefabs: []
 --- !u!58 &-1491974803791587344
 CircleCollider2D:
   m_ObjectHideFlags: 0

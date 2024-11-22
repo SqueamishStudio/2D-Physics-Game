@@ -10,10 +10,18 @@ public class GumdropBehaviour : MonoBehaviour
 
     public List<GameObject> connectingObjects = new List<GameObject>(); // List to store objects this one is connected to
 
+    [SerializeField] private List<GameObject> splatPrefabs = new List<GameObject>();
+
     private void Start()
     {
         // remame object to objectID + random number
         gameObject.name = objectID + "_" + tag + "_" + Random.Range(0, 99999);
+
+        // fill splat prefabs list with all splat prefabs in the folder
+        foreach (GameObject splat in Resources.LoadAll<GameObject>("SplatPrefabs"))
+        {
+            splatPrefabs.Add(splat);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -86,5 +94,23 @@ public class GumdropBehaviour : MonoBehaviour
     void Update()
     {
         CheckForConnectedObjects();
+    }
+
+    private void OnDestroy()
+    {
+        // spawn random 1-4 splat prefabs, with random rotation
+        foreach (GameObject splat in splatPrefabs)
+        {
+            var newSplat = Instantiate(splat, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.Euler(0, 0, Random.Range(0, 360)));
+
+            newSplat.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color + new Color(0.3f, 0.3f, 0.3f, 0);
+
+            // newSplat.GetComponent<SpriteRenderer>().color = new Color(newSplat.GetComponent<SpriteRenderer>().color.r, newSplat.GetComponent<SpriteRenderer>().color.g, newSplat.GetComponent<SpriteRenderer>().color.b, 0.5f);
+
+            newSplat.GetComponent<SpriteRenderer>().sortingOrder = -1;
+
+            var size = Random.Range(5, 20);
+            newSplat.transform.localScale = new Vector3(size,size,size);
+        }
     }
 }
